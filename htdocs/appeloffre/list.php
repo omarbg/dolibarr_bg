@@ -193,7 +193,7 @@ if ($action == 'list' || true)
                     print '<tr>';
                     
                     print '<td>';
-                    print sprintf('%08d', $obj->id);
+                    print $obj->ref;
 //                    print $obj->id;   
                     print '</td>';
                     
