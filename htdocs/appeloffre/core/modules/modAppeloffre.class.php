@@ -499,7 +499,7 @@ $this->menu[$r]=array(	'fk_menu'=>'r=1',	// Use 'fk_mainmenu=xxx' or 'fk_mainmen
 			'type'=>'left',			// This is a Left menu entry
 			'titre'=>'Add Offre',
 			'mainmenu'=>'appeloffre',
-			'url'=>'/appeloffre/card.php',
+			'url'=>'/appeloffre/card.php?action=create',
 			'langs'=>'appeloffre',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>102,
 			'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->monmodule->enabled' if entry must be visible if module is enabled.
@@ -539,7 +539,7 @@ $this->menu[$r]=array(	'fk_menu'=>'r=4',	// Use 'fk_mainmenu=xxx' or 'fk_mainmen
 			'type'=>'left',			// This is a Left menu entry
 			'titre'=>'Add contact',
 			'mainmenu'=>'contacts',
-			'url'=>'/appeloffre/contacts/add.php',
+			'url'=>'/appeloffre/contacts/card.php?action=create',
 			'langs'=>'appeloffre',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>105,
 			'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->monmodule->enabled' if entry must be visible if module is enabled.

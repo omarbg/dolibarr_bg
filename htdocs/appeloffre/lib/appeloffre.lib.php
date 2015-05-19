@@ -84,3 +84,32 @@ function getNextValueRef()
                 return $prefix.$yymm."-".$num;
 		
 	}
+        
+        
+/**
+ * Prepare array with list of tabs
+ *
+ * @param   Object	$object		Object related to tabs
+ * @param	User	$user		Object user
+ * @return  array				Array of tabs to show
+ */
+function offre_prepare_head($object, $user)
+{
+	global $langs, $conf;
+	$langs->load("appeloffre");
+
+	$h = 0;
+	$head = array();
+
+	$head[$h][0] = DOL_URL_ROOT."/appeloffre/card.php?id=".$object->id;
+	$head[$h][1] = $langs->trans("Card");
+	$head[$h][2] = 'card';
+	$h++;
+
+	$head[$h][0] = DOL_URL_ROOT."/product/price.php?id=".$object->id;
+	$head[$h][1] = $langs->trans("CustomerPrices");
+	$head[$h][2] = 'price';
+	$h++;
+
+	return $head;
+}

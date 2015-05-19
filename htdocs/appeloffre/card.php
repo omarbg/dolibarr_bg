@@ -5,6 +5,7 @@ require_once DOL_DOCUMENT_ROOT . '/appeloffre/class/appeloffre.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/genericobject.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/lib/company.lib.php';
+require_once DOL_DOCUMENT_ROOT . '/appeloffre/lib/appeloffre.lib.php';
 
 $langs->load("appeloffre");
 
@@ -35,28 +36,11 @@ if ($id > 0) {
 }
 
 
-// Security check
-$fieldvalue = (!empty($id) ? $id : (!empty($ref) ? $ref : ''));
-$fieldtype = (!empty($ref) ? 'ref' : 'rowid');
-$result = restrictedArea($user, 'produit|service', $fieldvalue, 'product&product', '', '', $fieldtype, $objcanvas);
-
-// Initialize technical object to manage hooks of thirdparties. Note that conf->hooks_modules contains array array
-//$hookmanager->initHooks(array('productcard', 'globalcard'));
-
 
 
 /*
  * Actions
  */
-
-
-if (empty($reshook)) {
-    // Type
-    if ($action == 'setfk_product_type' && $user->rights->produit->creer) {
-        $result = $object->setValueFrom('fk_product_type', GETPOST('fk_product_type'));
-        header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $object->id);
-        exit;
-    }
 
 
 
@@ -71,7 +55,7 @@ if (empty($reshook)) {
         }
 
         if (!$error) {
-            $object->ref = $ref;
+            $object->ref = getNextValueRef();
             $object->label = GETPOST('title');
             $object->description = GETPOST('description');
             $object->date_create= date('d-m-Y H:i:s');
@@ -87,7 +71,7 @@ if (empty($reshook)) {
             }
 
             if ($id > 0) {
-                header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $id);
+                header("Location: list.php");
                 exit;
             } else {
                 if (count($object->errors))
@@ -157,6 +141,7 @@ if (empty($reshook)) {
 
                 if ($object->check()) {
                     $id = $object->create($user);
+                    
                     if ($id > 0) {
                         if (GETPOST('clone_composition')) {
                             $result = $object->clone_associations($originalId, $id);
@@ -174,7 +159,7 @@ if (empty($reshook)) {
                         $db->commit();
                         $db->close();
 
-                        header("Location: " . $_SERVER["PHP_SELF"] . "?id=" . $id);
+                        header("Location: list.php");
                         exit;
                     } else {
                         $id = $originalId;
@@ -226,7 +211,6 @@ if (empty($reshook)) {
         }
     }
 
-}
 
 if (GETPOST("cancel") == $langs->trans("Cancel")) {
     $action = '';
@@ -246,6 +230,8 @@ $title = $langs->trans('Nouveau Offre');
 
 llxHeader('', $title, $helpurl);
 
+if ($action ==='create')  
+{
 $form = new Form($db);
 
     // -----------------------------------------
@@ -304,11 +290,69 @@ $form = new Form($db);
 
     print '</form>';
 
+}  else {
+//mode visual du fiche offre 
+    
+$appel_offre = new Appeloffre($db);
+$appel_offre->fetch($id);
 
 
-    /*
-     * Product card
-     */
+            $head=offre_prepare_head($appel_offre, $user);
+            $titre=$langs->trans("Offre Card");
+            $picto='product';
+            dol_fiche_head($head, 'card', $titre, 0, $picto);
+
+          
+            // En mode visu
+            print '<table class="border" width="100%"><tr>';
+
+            // Ref
+            print '<td width="15%">'.$langs->trans("Ref").'</td><td>';          
+            print $appel_offre->ref;
+            print '</td>';
+            print '</tr>';
+            // Label
+            print '<tr><td>'.$langs->trans("Label").'</td><td colspan="2">'.$appel_offre->label.'</td>';
+            
+            print '<tr><td>'.$langs->trans("Description").'</td><td colspan="2">'.$appel_offre->description.'</td>';
+            
+            print '<tr><td>'.$langs->trans("Date de sortie").'</td><td colspan="2">'.$appel_offre->date_sortie.'</td>';
+
+            print '<tr><td>'.$langs->trans("Date de création").'</td><td colspan="2">'.$appel_offre->date_create.'</td>';
+            
+            print '<tr><td>'.$langs->trans("Date butoir").'</td><td colspan="2">'.$appel_offre->date_butoir.'</td>';
+
+            print '<tr><td>'.$langs->trans("Estimation budgétaire").'</td><td colspan="2">'.$appel_offre->budget_est.'</td>';
+            
+            print '<tr><td>'.$langs->trans("secteur géographique").'</td><td colspan="2">'.$appel_offre->secteur_geo.'</td>';
+            
+            print '<tr><td>'.$langs->trans("Segmentation").'</td><td colspan="2">'.$appel_offre->segmentation.'</td>';
+            
+            print '<tr><td>'.$langs->trans("Etape de paiment").'</td><td colspan="2">'.$appel_offre->buy_step.'</td>';
+            
+            print '<tr><td>'.$langs->trans("Montant attribué").'</td><td colspan="2">'.$appel_offre->amount_attributed.'</td>';
+            
+            print '<tr><td>'.$langs->trans("Contact référent").'</td><td colspan="2">'.$appel_offre->contacts
+                    .'</td>';
+            
+            
+            $utl =  new User($db);
+            $utl->fetch($appel_offre->owner);
+            
+            
+            print '<tr><td>'.$langs->trans("Utilisateur").'</td><td colspan="2">'.$utl->getNomUrl().'</td>';
+            
+            
+            print "</table>\n";
+
+            dol_fiche_end();
+    
+    
+    
+    
+    
+    
+}
 
 
 

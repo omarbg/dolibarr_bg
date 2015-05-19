@@ -42,7 +42,7 @@ class Appeloffre extends CommonObject
 
     var $id;
     
-//	var $ref;
+	var $ref;
 	var $label;
 	var $fk_tiers;
 	var $visible;
@@ -87,10 +87,10 @@ class Appeloffre extends CommonObject
     {
     	global $conf, $langs;
 		$error=0;
-
+                
 		// Clean parameters
         
-//		if (isset($this->ref)) $this->ref=trim($this->ref);
+		if (isset($this->ref)) $this->ref=trim($this->ref);
 		if (isset($this->label)) $this->label=trim($this->label);
 		if (isset($this->fk_tiers)) $this->fk_tiers=trim($this->fk_tiers);
 		if (isset($this->visible)) $this->visible=trim($this->visible);
@@ -117,7 +117,7 @@ class Appeloffre extends CommonObject
         // Insert request
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."appeloffre(";
 		
-//		$sql.= "ref,";
+		$sql.= "ref,";
 		$sql.= "label,";
 		$sql.= "fk_tiers,";
 		$sql.= "visible,";
@@ -139,7 +139,7 @@ class Appeloffre extends CommonObject
 		
         $sql.= ") VALUES (";
         
-//		$sql.= " ".(! isset($this->ref)?'NULL':"'".$this->db->escape($this->ref)."'").",";
+		$sql.= " ".(! isset($this->ref)?'NULL':"'".$this->db->escape($this->ref)."'").",";
 		$sql.= " ".(! isset($this->label)?'NULL':"'".$this->db->escape($this->label)."'").",";
 		$sql.= " ".(! isset($this->fk_tiers)?'NULL':"'".$this->fk_tiers."'").",";
 		$sql.= " ".(! isset($this->visible)?'NULL':"'".$this->visible."'").",";
@@ -154,12 +154,13 @@ class Appeloffre extends CommonObject
 		$sql.= " ".(! isset($this->status)?'NULL':"'".$this->status."'").",";
 		$sql.= " ".(! isset($this->Adjudicataire)?'NULL':"'".$this->Adjudicataire."'").",";
 		$sql.= " ".(! isset($this->amount_attributed)?'NULL':"'".$this->amount_attributed."'").",";
-		$sql.= " ".(! isset($this->fk_contact)?'NULL':"'".$this->fk_contact."'").",";
-		$sql.= " ".(! isset($this->owner)?'NULL':"'".$this->owner."'").",";
+		$sql.= "  ".(! isset($this->fk_contact)?'NULL':"'".$this->fk_contact."'").",";
+		$sql.= " $user->id ,";
 		$sql.= " ".(! isset($this->contacts)?'NULL':"'".$this->db->escape($this->contacts)."'")."";
 
         
 		$sql.= ")";
+        
 
 		$this->db->begin();
 
@@ -213,11 +214,9 @@ class Appeloffre extends CommonObject
     function fetch($id)
     {
     	global $langs;
-        $sql = "SELECT";
-		$sql.= " t.rowid,";
-		
+        $sql = "SELECT";		
 		$sql.= " t.id,";
-//		$sql.= " t.ref,";
+		$sql.= " t.ref,";
 		$sql.= " t.label,";
 		$sql.= " t.fk_tiers,";
 		$sql.= " t.visible,";
@@ -238,7 +237,7 @@ class Appeloffre extends CommonObject
 
 		
         $sql.= " FROM ".MAIN_DB_PREFIX."appeloffre as t";
-        $sql.= " WHERE t.rowid = ".$id;
+        $sql.= " WHERE t.id = ".$id;
 
     	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
         $resql=$this->db->query($sql);
@@ -248,9 +247,9 @@ class Appeloffre extends CommonObject
             {
                 $obj = $this->db->fetch_object($resql);
 
-                $this->id    = $obj->rowid;
+                $this->id    = $obj->id;
                 
-//				$this->ref = $obj->ref;
+				$this->ref = $obj->ref;
 				$this->label = $obj->label;
 				$this->fk_tiers = $obj->fk_tiers;
 				$this->visible = $obj->visible;
@@ -298,7 +297,7 @@ class Appeloffre extends CommonObject
 
 		// Clean parameters
         
-//		if (isset($this->ref)) $this->ref=trim($this->ref);
+		if (isset($this->ref)) $this->ref=trim($this->ref);
 		if (isset($this->label)) $this->label=trim($this->label);
 		if (isset($this->fk_tiers)) $this->fk_tiers=trim($this->fk_tiers);
 		if (isset($this->visible)) $this->visible=trim($this->visible);
@@ -325,7 +324,7 @@ class Appeloffre extends CommonObject
         // Update request
         $sql = "UPDATE ".MAIN_DB_PREFIX."appeloffre SET";
         
-//		$sql.= " ref=".(isset($this->ref)?"'".$this->db->escape($this->ref)."'":"null").",";
+		$sql.= " ref=".(isset($this->ref)?"'".$this->db->escape($this->ref)."'":"null").",";
 		$sql.= " label=".(isset($this->label)?"'".$this->db->escape($this->label)."'":"null").",";
 		$sql.= " fk_tiers=".(isset($this->fk_tiers)?$this->fk_tiers:"null").",";
 		$sql.= " visible=".(isset($this->visible)?$this->visible:"null").",";
@@ -345,7 +344,7 @@ class Appeloffre extends CommonObject
 		$sql.= " contacts=".(isset($this->contacts)?"'".$this->db->escape($this->contacts)."'":"null")."";
 
         
-        $sql.= " WHERE rowid=".$this->id;
+        $sql.= " WHERE id=".$this->id;
 
 		$this->db->begin();
 
@@ -421,7 +420,7 @@ class Appeloffre extends CommonObject
 		if (! $error)
 		{
     		$sql = "DELETE FROM ".MAIN_DB_PREFIX."appeloffre";
-    		$sql.= " WHERE rowid=".$this->id;
+    		$sql.= " WHERE id=".$this->id;
 
     		dol_syslog(get_class($this)."::delete sql=".$sql);
     		$resql = $this->db->query($sql);
@@ -512,7 +511,7 @@ class Appeloffre extends CommonObject
 	{
 		$this->id=0;
 		
-//		$this->ref='';
+		$this->ref='';
 		$this->label='';
 		$this->fk_tiers='';
 		$this->visible='';
