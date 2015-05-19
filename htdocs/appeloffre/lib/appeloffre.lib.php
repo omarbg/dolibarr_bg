@@ -53,3 +53,34 @@ function appeloffreAdminPrepareHead()
 
 	return $head;
 }
+function getNextValueRef()
+	{
+		global $db,$conf;
+
+                $prefix  = "OFR";
+		// D'abord on recupere la valeur max
+		$sql = "SELECT MAX(id) as max";	// This is standard SQL
+		$sql.= " FROM ".MAIN_DB_PREFIX."appeloffre";
+		
+
+		$resql=$db->query($sql);
+    		if ($resql)
+		{
+			$obj = $db->fetch_object($resql);
+			if ($obj) $max = intval($obj->max);
+			else $max=0;
+		}
+		else
+		{
+			return -1;
+		}
+
+	
+    		$date=time();	// This is invoice date (not creation date)
+    		$yymm = strftime("%y%m",$date);
+
+    		if ($max >= (pow(10, 4) - 1)) $num=$max+1;	// If counter > 9999, we do not format on 4 chars, we take number as it is
+    		else $num = sprintf("%04s",$max+1);
+                return $prefix.$yymm."-".$num;
+		
+	}
