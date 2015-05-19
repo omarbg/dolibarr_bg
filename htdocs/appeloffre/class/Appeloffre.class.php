@@ -42,7 +42,7 @@ class Appeloffre extends CommonObject
 
     var $id;
     
-	var $ref;
+//	var $ref;
 	var $label;
 	var $fk_tiers;
 	var $visible;
@@ -90,7 +90,7 @@ class Appeloffre extends CommonObject
 
 		// Clean parameters
         
-		if (isset($this->ref)) $this->ref=trim($this->ref);
+//		if (isset($this->ref)) $this->ref=trim($this->ref);
 		if (isset($this->label)) $this->label=trim($this->label);
 		if (isset($this->fk_tiers)) $this->fk_tiers=trim($this->fk_tiers);
 		if (isset($this->visible)) $this->visible=trim($this->visible);
@@ -117,7 +117,7 @@ class Appeloffre extends CommonObject
         // Insert request
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."appeloffre(";
 		
-		$sql.= "ref,";
+//		$sql.= "ref,";
 		$sql.= "label,";
 		$sql.= "fk_tiers,";
 		$sql.= "visible,";
@@ -139,7 +139,7 @@ class Appeloffre extends CommonObject
 		
         $sql.= ") VALUES (";
         
-		$sql.= " ".(! isset($this->ref)?'NULL':"'".$this->db->escape($this->ref)."'").",";
+//		$sql.= " ".(! isset($this->ref)?'NULL':"'".$this->db->escape($this->ref)."'").",";
 		$sql.= " ".(! isset($this->label)?'NULL':"'".$this->db->escape($this->label)."'").",";
 		$sql.= " ".(! isset($this->fk_tiers)?'NULL':"'".$this->fk_tiers."'").",";
 		$sql.= " ".(! isset($this->visible)?'NULL':"'".$this->visible."'").",";
@@ -217,7 +217,7 @@ class Appeloffre extends CommonObject
 		$sql.= " t.rowid,";
 		
 		$sql.= " t.id,";
-		$sql.= " t.ref,";
+//		$sql.= " t.ref,";
 		$sql.= " t.label,";
 		$sql.= " t.fk_tiers,";
 		$sql.= " t.visible,";
@@ -250,7 +250,7 @@ class Appeloffre extends CommonObject
 
                 $this->id    = $obj->rowid;
                 
-				$this->ref = $obj->ref;
+//				$this->ref = $obj->ref;
 				$this->label = $obj->label;
 				$this->fk_tiers = $obj->fk_tiers;
 				$this->visible = $obj->visible;
@@ -298,7 +298,7 @@ class Appeloffre extends CommonObject
 
 		// Clean parameters
         
-		if (isset($this->ref)) $this->ref=trim($this->ref);
+//		if (isset($this->ref)) $this->ref=trim($this->ref);
 		if (isset($this->label)) $this->label=trim($this->label);
 		if (isset($this->fk_tiers)) $this->fk_tiers=trim($this->fk_tiers);
 		if (isset($this->visible)) $this->visible=trim($this->visible);
@@ -325,7 +325,7 @@ class Appeloffre extends CommonObject
         // Update request
         $sql = "UPDATE ".MAIN_DB_PREFIX."appeloffre SET";
         
-		$sql.= " ref=".(isset($this->ref)?"'".$this->db->escape($this->ref)."'":"null").",";
+//		$sql.= " ref=".(isset($this->ref)?"'".$this->db->escape($this->ref)."'":"null").",";
 		$sql.= " label=".(isset($this->label)?"'".$this->db->escape($this->label)."'":"null").",";
 		$sql.= " fk_tiers=".(isset($this->fk_tiers)?$this->fk_tiers:"null").",";
 		$sql.= " visible=".(isset($this->visible)?$this->visible:"null").",";
@@ -512,7 +512,7 @@ class Appeloffre extends CommonObject
 	{
 		$this->id=0;
 		
-		$this->ref='';
+//		$this->ref='';
 		$this->label='';
 		$this->fk_tiers='';
 		$this->visible='';
