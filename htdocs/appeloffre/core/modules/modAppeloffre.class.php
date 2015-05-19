@@ -462,7 +462,114 @@ class modAppeloffre extends DolibarrModules
 
 		// Can be enabled / disabled only in the main company when multi-company is in use
 		// $this->core_enabled = 1;
+                // Main menu entries
+$this->menu = array();			// List of menus to add
+$r=0;
+ 
+// Add here entries to declare new menus
+// Example to declare the Top Menu entry:
+$this->menu[$r]=array(	'fk_menu'=>0,			// Put 0 if this is a top menu
+			'type'=>'top',			// This is a Top menu entry
+			'titre'=>'Appeloffre',
+			'mainmenu'=>'appeloffre',
+			'leftmenu'=>'appeloffre',
+			'url'=>'/appeloffre/list.php',
+			'langs'=>'mylangfile',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+			'position'=>100,
+			'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->monmodule->enabled' if entry must be visible if module is enabled.
+			'perms'=>'1',			// Use 'perms'=>'$user->rights->monmodule->level1->level2' if you want your menu with a permission rules
+			'target'=>'',
+			'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
+$r++;
+ 
+// Example to declare a Left Menu entry:
+$this->menu[$r]=array(	'fk_menu'=>'r=0',	// Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode of parent menu
+			'type'=>'left',			// This is a Left menu entry
+			'titre'=>'Appel Offre',
+    			'mainmenu'=>'appeloffre',
+			'url'=>'/appeloffre/list.php',
+			'langs'=>'appeloffre',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+			'position'=>100,
+			'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->monmodule->enabled' if entry must be visible if module is enabled.
+			'perms'=>'1',			// Use 'perms'=>'$user->rights->monmodule->level1->level2' if you want your menu with a permission rules
+			'target'=>'',
+			'user'=>2);				// 0=Menu for internal users,1=external users, 2=both
+$r++;
+$this->menu[$r]=array(	'fk_menu'=>'r=1',	// Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode of parent menu
+			'type'=>'left',			// This is a Left menu entry
+			'titre'=>'Add Offre',
+			'mainmenu'=>'appeloffre',
+			'url'=>'/appeloffre/card.php',
+			'langs'=>'appeloffre',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+			'position'=>102,
+			'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->monmodule->enabled' if entry must be visible if module is enabled.
+			'perms'=>'1',			// Use 'perms'=>'$user->rights->monmodule->level1->level2' if you want your menu with a permission rules
+			'target'=>'',
+			'user'=>2);				// 0=Menu for internal users,1=external users, 2=both
+$r++;
+$this->menu[$r]=array(	'fk_menu'=>'r=1',	// Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode of parent menu
+			'type'=>'left',			// This is a Left menu entry
+			'titre'=>'List Offre',
+			'mainmenu'=>'appeloffre',
+			'url'=>'/appeloffre/list.php',
+			'langs'=>'appeloffre',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+			'position'=>103,
+			'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->monmodule->enabled' if entry must be visible if module is enabled.
+			'perms'=>'1',			// Use 'perms'=>'$user->rights->monmodule->level1->level2' if you want your menu with a permission rules
+			'target'=>'',
+			'user'=>2);				// 0=Menu for internal users,1=external users, 2=both
+$r++;
+
+
+
+// Example to declare a Left Menu entry:
+$this->menu[$r]=array(	'fk_menu'=>'r=0',	// Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode of parent menu
+			'type'=>'left',			// This is a Left menu entry
+			'titre'=>'Contacts',
+    			'mainmenu'=>'contacts',
+			'url'=>'/appeloffre/contacts/list.php',
+			'langs'=>'appeloffre',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+			'position'=>104,
+			'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->monmodule->enabled' if entry must be visible if module is enabled.
+			'perms'=>'1',			// Use 'perms'=>'$user->rights->monmodule->level1->level2' if you want your menu with a permission rules
+			'target'=>'',
+			'user'=>2);				// 0=Menu for internal users,1=external users, 2=both
+$r++;
+$this->menu[$r]=array(	'fk_menu'=>'r=4',	// Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode of parent menu
+			'type'=>'left',			// This is a Left menu entry
+			'titre'=>'Add contact',
+			'mainmenu'=>'contacts',
+			'url'=>'/appeloffre/contacts/add.php',
+			'langs'=>'appeloffre',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+			'position'=>105,
+			'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->monmodule->enabled' if entry must be visible if module is enabled.
+			'perms'=>'1',			// Use 'perms'=>'$user->rights->monmodule->level1->level2' if you want your menu with a permission rules
+			'target'=>'',
+			'user'=>2);				// 0=Menu for internal users,1=external users, 2=both
+$r++;
+$this->menu[$r]=array(	'fk_menu'=>'r=4',	// Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode of parent menu
+			'type'=>'left',			// This is a Left menu entry
+			'titre'=>'List contacts',
+			'mainmenu'=>'contacts',
+			'url'=>'/appeloffre/contacts/list.php',
+			'langs'=>'appeloffre',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+			'position'=>106,
+			'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->monmodule->enabled' if entry must be visible if module is enabled.
+			'perms'=>'1',			// Use 'perms'=>'$user->rights->monmodule->level1->level2' if you want your menu with a permission rules
+			'target'=>'',
+			'user'=>2);				// 0=Menu for internal users,1=external users, 2=both
+$r++;
+
+
+
+	
+
+                
+                
 	}
+        
+        
+        
 
 	/**
 	 * Function called when module is enabled.

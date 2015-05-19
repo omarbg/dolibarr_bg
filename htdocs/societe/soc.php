@@ -2245,8 +2245,20 @@ else
     }
 
 }
+//omar modification
+//add custum field actions
+?>
+<script type="text/javascript">
+    $(document).on('change','input[name=options_concurant]',function(){
+        $(this).closest('table').children('tbody').children('tr').first().next().hide();
+        console.log($(this).closest('table').children('tbody').children('tr').first().next());
+    });
+</script>
 
 
+
+
+<?php
 // End of page
 llxFooter();
 $db->close();

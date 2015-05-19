@@ -15,31 +15,31 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #
-# Générique
+# Generic
 #
 
 # Module label 'ModuleXXXName'
 # (where XXX is value of numeric property 'numero' of module)
-Module10000Name = Mon module
+Module10000Name = Appeloffre
 # Module description 'ModuleXXXDesc'
 # (where XXX is value of numeric property 'numero' of module)
-Module10000Desc = Description de mon module
+Module10000Desc = Appeloffre Module vous permet de faire la gestion des appels d'offre
 
 #
-# Page d'administration
+# Admin page
 #
-MyModuleSetup = Configuration du module mon module
-Settings = Réglages
-MyModuleSetupPage = Page de réglage de mon module
+AppeloffreSetup = Appeloffre setup
+Settings = Settings
+AppeloffreSetupPage = Appeloffre setup page
 
 #
-# Page À propos
+# About page
 #
-About = À propos
-MyModuleAbout = À propos de mon module
-MyModuleAboutPage = Page à propos de mon module
+About = About
+AppeloffreAbout = About appel offre
+AppeloffreAboutPage = appel offre about page
 
 #
-# Page d'exemple
+# Sample page
 #
-MyPageName = Nom de ma page
+MyPageName = My page name

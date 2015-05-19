@@ -40,7 +40,7 @@ class Appeloffre extends CommonObject
 	var $element='appeloffre';			//!< Id that identify managed objects
 	var $table_element='appeloffre';		//!< Name of table without prefix where object is stored
 
-        var $id;
+    var $id;
     
 	var $ref;
 	var $label;

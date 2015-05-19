@@ -3556,7 +3556,26 @@ abstract class CommonObject
         }
         else return 0;
     }
+    /**
+     * return if currant tiers is concuant
+     * @param type $extrafields
+     * @return type
+     */
+    function is_concurant($extrafields) {
+        
+        foreach($extrafields->attribute_label as $key=>$label)
+        {
+            if ($key==='concurant')
+            {
+                return $this->array_options["options_".$key];
 
+            }
+        }
+        return 0;
+    }
+    
+    
+    
    /**
      * Function to show lines of extrafields with output datas
      *
@@ -3580,8 +3599,18 @@ abstract class CommonObject
 			$out .= "\n";
 
 			$e = 0;
+                        
+                        $is_concourant = (int)$this->is_concurant($extrafields);
 			foreach($extrafields->attribute_label as $key=>$label)
 			{
+                                                        
+                            
+                            $value  = $this->array_options["options_".$key];
+                            
+                            
+                            
+                         if($key !=='strategie' || ($key ==='strategie' && $is_concourant )) {
+                            
 				if (is_array($params) && count($params)>0) {
 					if (array_key_exists('colspan',$params)) {
 						$colspan=$params['colspan'];
@@ -3645,6 +3674,11 @@ abstract class CommonObject
 					else $out .= '</tr>';
 					$e++;
 				}
+                                
+                                
+                        }else{
+                            ;
+                        }
 			}
 			$out .= "\n";
 			$out .= '<!-- /showOptionalsInput --> ';
