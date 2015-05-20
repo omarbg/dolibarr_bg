@@ -93,7 +93,7 @@ function getNextValueRef()
  * @param	User	$user		Object user
  * @return  array				Array of tabs to show
  */
-function offre_prepare_head($object, $user)
+function offre_prepare_head($object)
 {
 	global $langs, $conf;
 	$langs->load("appeloffre");
@@ -106,9 +106,28 @@ function offre_prepare_head($object, $user)
 	$head[$h][2] = 'card';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT."/product/price.php?id=".$object->id;
-	$head[$h][1] = $langs->trans("CustomerPrices");
-	$head[$h][2] = 'price';
+	$head[$h][0] = DOL_URL_ROOT."/appeloffre/contacts.php?id=".$object->id;
+	$head[$h][1] = $langs->trans("Contacts");
+	$head[$h][2] = 'contacts';
+	$h++;
+
+	return $head;
+}
+function contact_prepare_head($object)
+{
+	global $langs, $conf;
+	$langs->load("appeloffre");
+
+	$h = 0;
+	$head = array();
+	$head[$h][0] = DOL_URL_ROOT."/appeloffre/contacts/card.php?id=".$object->id;
+	$head[$h][1] = $langs->trans("Card");
+	$head[$h][2] = 'ccard';
+	$h++;
+	
+	$head[$h][0] = DOL_URL_ROOT."/appeloffre/contacts/tiers.php?id=".$object->id;
+	$head[$h][1] = $langs->trans("Tiers");
+	$head[$h][2] = 'tiers';
 	$h++;
 
 	return $head;

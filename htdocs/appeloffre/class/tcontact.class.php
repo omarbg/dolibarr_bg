@@ -32,7 +32,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 /**
  *	Put here description of your class
  */
-class Contact extends CommonObject
+class Tcontact extends CommonObject
 {
 	var $db;							//!< To store db handler
 	var $error;							//!< To return error code (or message)
@@ -48,6 +48,7 @@ class Contact extends CommonObject
 	var $telephone1;
 	var $telephone2;
 	var $adresse;
+	var $methode_contact;
 
     
 
@@ -84,6 +85,7 @@ class Contact extends CommonObject
 		if (isset($this->telephone1)) $this->telephone1=trim($this->telephone1);
 		if (isset($this->telephone2)) $this->telephone2=trim($this->telephone2);
 		if (isset($this->adresse)) $this->adresse=trim($this->adresse);
+		if (isset($this->methode_contact)) $this->methode_contact=trim($this->methode_contact);
 
         
 
@@ -97,8 +99,9 @@ class Contact extends CommonObject
 		$sql.= "prenom,";
 		$sql.= "email,";
 		$sql.= "telephone1,";
-		$sql.= "telephone2,";
-		$sql.= "adresse";
+		$sql.= "telephone2,";		
+		$sql.= "methode_contact,";
+                $sql.= "adresse";
 
 		
         $sql.= ") VALUES (";
@@ -108,6 +111,7 @@ class Contact extends CommonObject
 		$sql.= " ".(! isset($this->email)?'NULL':"'".$this->db->escape($this->email)."'").",";
 		$sql.= " ".(! isset($this->telephone1)?'NULL':"'".$this->db->escape($this->telephone1)."'").",";
 		$sql.= " ".(! isset($this->telephone2)?'NULL':"'".$this->db->escape($this->telephone2)."'").",";
+		$sql.= " ".(! isset($this->methode_contact)?'NULL':"'".$this->db->escape($this->methode_contact)."'").",";
 		$sql.= " ".(! isset($this->adresse)?'NULL':"'".$this->db->escape($this->adresse)."'")."";
 
         
@@ -116,7 +120,7 @@ class Contact extends CommonObject
 		$this->db->begin();
 
 	   	dol_syslog(get_class($this)."::create sql=".$sql, LOG_DEBUG);
-        $resql=$this->db->query($sql);
+                $resql=$this->db->query($sql);
     	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
 
 		if (! $error)
@@ -173,6 +177,7 @@ class Contact extends CommonObject
 		$sql.= " t.email,";
 		$sql.= " t.telephone1,";
 		$sql.= " t.telephone2,";
+		$sql.= " t.methode_contact,";
 		$sql.= " t.adresse";
 
 		
@@ -195,6 +200,7 @@ class Contact extends CommonObject
 				$this->telephone1 = $obj->telephone1;
 				$this->telephone2 = $obj->telephone2;
 				$this->adresse = $obj->adresse;
+				$this->methode_contact = $obj->methode_contact;
 
                 
             }
@@ -231,6 +237,7 @@ class Contact extends CommonObject
 		if (isset($this->telephone1)) $this->telephone1=trim($this->telephone1);
 		if (isset($this->telephone2)) $this->telephone2=trim($this->telephone2);
 		if (isset($this->adresse)) $this->adresse=trim($this->adresse);
+		if (isset($this->methode_contact)) $this->methode_contact=trim($this->methode_contact);
 
         
 
@@ -245,6 +252,7 @@ class Contact extends CommonObject
 		$sql.= " email=".(isset($this->email)?"'".$this->db->escape($this->email)."'":"null").",";
 		$sql.= " telephone1=".(isset($this->telephone1)?"'".$this->db->escape($this->telephone1)."'":"null").",";
 		$sql.= " telephone2=".(isset($this->telephone2)?"'".$this->db->escape($this->telephone2)."'":"null").",";
+		$sql.= " methode_contact=".(isset($this->methode_contact)?"'".$this->db->escape($this->methode_contact)."'":"null").",";
 		$sql.= " adresse=".(isset($this->adresse)?"'".$this->db->escape($this->adresse)."'":"null")."";
 
         
@@ -420,6 +428,7 @@ class Contact extends CommonObject
 		$this->email='';
 		$this->telephone1='';
 		$this->telephone2='';
+		$this->methode_contact='';
 		$this->adresse='';
 
 		

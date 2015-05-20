@@ -22,3 +22,10 @@
  *	\brief		This file is an example css file
  *				Put some comments here
  */
+?>
+.open_offre{
+    color:green;    
+}
+.ended_offre{
+    color:red;    
+}

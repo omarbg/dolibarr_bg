@@ -159,7 +159,7 @@ if ($action == 'list' || true)
 {
     $sql = "SELECT";
     $sql.= " t.*";   
-    $sql.= " FROM ".MAIN_DB_PREFIX."appeloffre as t";
+    $sql.= " FROM ".MAIN_DB_PREFIX."contact as t";
 //    $sql.= " WHERE field3 = 'xxx'";
 //    $sql.= " ORDER BY field1 ASC";
 
@@ -167,13 +167,12 @@ if ($action == 'list' || true)
 //    print $sql;
     print '<table class="noborder">'."\n";
     print '<tr class="liste_titre">';
-    print '<th class="liste_titre">Réf</th>';
-    print '<th class="liste_titre">Date</th>';
-    print '<th class="liste_titre">État</th>';
-    print '<th class="liste_titre">Montant</th>';
-    print '<th class="liste_titre">Adjudicataire</th>';
-    print '<th class="liste_titre">Architecte(s)</th>';
-    print '<th class="liste_titre">BET(s)</th>';
+    print '<th class="liste_titre">Nom </th>';
+    print '<th class="liste_titre">Adresse</th>';
+    print '<th class="liste_titre">Email</th>';
+    print '<th class="liste_titre">Tél 1</th>';
+    print '<th class="liste_titre">Tél 2</th>';    
+    print '<th class="liste_titre">Methode de contact</th>';    
     print '</tr>';
 
     dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
@@ -194,35 +193,26 @@ if ($action == 'list' || true)
                     
                     print '<td>';
                     
-                    print "<a href='card.php?id=$obj->id'>".$obj->ref."</a>";
+                    print "<a href='card.php?id=$obj->rowid'>".$obj->nom." ".$obj->prenom."</a>";
 //                    print $obj->id;   
                     print '</td>';
                     
                     print '<td>';
-                    print $obj->date_create;
+                    print substr($obj->adresse,0,100).'...';
+                    print '</td>';
+                    print '<td>';
+                    print $obj->email;
                     print '</td>';
                     
                     print '<td>';
-                    print "Ouvert";
+                    print $obj->telephone1;
                     print '</td>';
-                    print '<td>';
-                    print $obj->amount_attributed;
+                    print '<td>';                    
+                    print $obj->telephone2;
                     print '</td>';
-                    
-                    print '<td>';
-                    print "Aucun";
+                    print '<td>';                    
+                    print $obj->methode_contact;
                     print '</td>';
-                    print '<td>';
-                    
-                    print "Aucun";
-                    print '</td>';
-                    
-                    print '<td>';
-                    print "Aucun";
-                    print '</td>';
-                    
-                 
-                    
                     
                     print '</tr>';
                 }

@@ -47,6 +47,7 @@ dol_include_once(DOL_DOCUMENT_ROOT."/appeloffre/class/Appeloffre.class.php");
 require_once(DOL_DOCUMENT_ROOT."/appeloffre/class/Appeloffre.class.php");
 
 
+
 // Load traductions files requiredby by page
 $langs->load("companies");
 $langs->load("other");
@@ -203,7 +204,11 @@ if ($action == 'list' || true)
                     print '</td>';
                     
                     print '<td>';
-                    print "Ouvert";
+                    if ($obj->date_butoir > date('d-m-Y')) {
+                        print "<span style='color:green'>En cours</span>";
+                    } else {
+                        print "<span style='color:red'>Terminé</span>";                        
+                    }
                     print '</td>';
                     print '<td>';
                     print $obj->amount_attributed;

@@ -227,6 +227,8 @@ $helpurl = '';
 
 
 $title = $langs->trans('Nouveau Offre');
+if (!isset($action))
+{$titre=$langs->trans("Fiche Offre");}
 
 llxHeader('', $title, $helpurl);
 
@@ -298,8 +300,8 @@ $appel_offre->fetch($id);
 
 
             $head=offre_prepare_head($appel_offre, $user);
-            $titre=$langs->trans("Offre Card");
-            $picto='product';
+            $titre=$langs->trans("Fiche Offre");
+            $picto='project';
             dol_fiche_head($head, 'card', $titre, 0, $picto);
 
           

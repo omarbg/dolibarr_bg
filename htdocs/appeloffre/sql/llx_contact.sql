@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `llx_contact` (
   `email` varchar(256) NOT NULL,
   `telephone1` varchar(256) NOT NULL,
   `telephone2` varchar(256) NOT NULL,
+  `methode_contact` varchar(256) NOT NULL,
   `adresse` text NOT NULL,
   PRIMARY KEY (`rowid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
