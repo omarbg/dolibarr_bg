@@ -167,6 +167,19 @@ function societe_prepare_head(Societe $object)
 	    $h++;
     }
 
+    //BEGIN omar modification                
+$extrafields=new ExtraFields($db);
+$extralabels=$extrafields->fetch_name_optionals_label($object->table_element,true);
+
+$is_concurant =0;
+if (isset($object->array_options['options_concurant']))
+{$is_concurant = (int)$object->array_options['options_concurant'];}
+if ($is_concurant){
+    // Log
+    $head[$h][0] = DOL_URL_ROOT.'/societe/contacts.php?socid='.$object->id;
+    $head[$h][1] = $langs->trans("Contacts");
+    $head[$h][2] = 'contacts';
+    $h++;}
     // Log
     $head[$h][0] = DOL_URL_ROOT.'/societe/info.php?socid='.$object->id;
     $head[$h][1] = $langs->trans("Info");
