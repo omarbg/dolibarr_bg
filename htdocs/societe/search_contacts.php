@@ -28,6 +28,7 @@ $num = $db->num_rows($resql);
                     $rs['value']= $obj->nom." ".$obj->prenom;
                     $return[] = $rs; 
                 }
+                $i++;
             
         }
         

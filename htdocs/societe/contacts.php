@@ -27,6 +27,7 @@ require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
+require_once DOL_DOCUMENT_ROOT.'/appeloffre/lib/appeloffre.lib.php';
 
 $langs->load("companies");
 $langs->load("other");
@@ -96,7 +97,8 @@ if (isset($action)){
 }
     }else if( $action==='removec'){
         
-        $sqla =  "DELETE `".MAIN_DB_PREFIX."contact_tiers` where id_contact='$id_contact' AND id_tiers='$socid'";        
+        $sqla = "DELETE FROM `".MAIN_DB_PREFIX."contact_tiers` WHERE `id_contact` =$id_contact and `id_tiers`=$socid";
+      
         if ($db->query($sqla)){
             setEventMessage('Contact Enlevé avec succes');
         }  else {
@@ -106,10 +108,7 @@ if (isset($action)){
     }
 }
 
-
-
-
-
+$soc_contacts  = soc_contacts($socid);
 
     $sql = "SELECT";
     $sql.= " t.*";   
@@ -162,7 +161,11 @@ if (isset($action)){
                     print $obj->methode_contact;
                     print '</td>';
                     print '<td>';
-                    print '<a href="'.$_SERVER['PHP_SELF'].'?socid='.$socid.'&action=addc&id_contact='.$obj->rowid.'">Enlever</a>';
+                    
+                    if (in_array($obj->rowid, $soc_contacts))                    
+                    {print '<a href="'.$_SERVER['PHP_SELF'].'?socid='.$socid.'&action=removec&id_contact='.$obj->rowid.'">Enlever</a>';}
+                    else
+                    {print '<a href="'.$_SERVER['PHP_SELF'].'?socid='.$socid.'&action=addc&id_contact='.$obj->rowid.'">Ajouter</a>';}
                     print '</td>';
                     
                     print '</tr>';
