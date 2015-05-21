@@ -132,3 +132,39 @@ function contact_prepare_head($object)
 
 	return $head;
 }
+/**
+ * return list of contact in the societe
+ * @global type $db
+ * @param type $socid
+ * @return type
+ */
+function soc_contacts($socid) {
+    
+    global $db;
+    
+    $query = "SELECT * FROM `".MAIN_DB_PREFIX."contact_tiers` WHERE `id_tiers`=$socid";
+
+    $contacts =  array();
+    
+    $resql=$db->query($query);
+    if ($resql)
+    {
+        $num = $db->num_rows($resql);
+        $i = 0;
+        if ($num)
+        {
+            while ($i < $num)
+            {
+                $obj = $db->fetch_object($resql);
+                $contacts[]= $obj->id_contact;
+                $i++;
+            }
+        }
+    }
+    return $contacts;
+    
+    
+    
+    
+}
+
