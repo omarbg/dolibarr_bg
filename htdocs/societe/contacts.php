@@ -69,6 +69,46 @@ $object->fetch($socid);
 $head = societe_prepare_head($object);
 
 dol_fiche_head($head, 'contacts', $langs->trans("ThirdParty"),0,'company');
+$action = GETPOST('action');
+$id_contact = GETPOST('id_contact');
+$soc = GETPOST('soc');
+
+if (isset($action)){
+    if ($action==='addc'){
+        //check if already exist
+        $query = "SELECT count(*) as nbr FROM `".MAIN_DB_PREFIX."contact_tiers` WHERE `id_contact`=$id_contact AND `id_tiers`=$socid";
+        $count = 0;
+   
+        if ($res =$db->query($query)){
+                  $obj = $db->fetch_object($res);
+                  $count =  $obj->nbr;
+        }
+        if (!$count){
+        $sqla =  "INSERT INTO `".MAIN_DB_PREFIX."contact_tiers`(`id_contact`, `id_tiers`) VALUES ('$id_contact','$socid')";        
+        
+        if ($db->query($sqla)){
+            setEventMessage('Contact ajouté avec succes');
+        }  else {
+                setEventMessage("probleme d'ajout du Contact",'errors');
+        }}  else {
+        setEventMessage(" Contact déja exist",'errors');
+            
+}
+    }else if( $action==='removec'){
+        
+        $sqla =  "DELETE `".MAIN_DB_PREFIX."contact_tiers` where id_contact='$id_contact' AND id_tiers='$socid'";        
+        if ($db->query($sqla)){
+            setEventMessage('Contact Enlevé avec succes');
+        }  else {
+                setEventMessage("probleme de suppression du Contact",'errors');
+        }        
+        
+    }
+}
+
+
+
+
 
 
     $sql = "SELECT";
@@ -122,7 +162,7 @@ dol_fiche_head($head, 'contacts', $langs->trans("ThirdParty"),0,'company');
                     print $obj->methode_contact;
                     print '</td>';
                     print '<td>';
-                    print '<a href="'.$_SERVER['PHP_SELF'].'?action=remove&contact_id='.$obj->rowid.'">Enlever</a>';
+                    print '<a href="'.$_SERVER['PHP_SELF'].'?socid='.$socid.'&action=addc&id_contact='.$obj->rowid.'">Enlever</a>';
                     print '</td>';
                     
                     print '</tr>';
@@ -153,8 +193,24 @@ dol_fiche_head($head, 'contacts', $langs->trans("ThirdParty"),0,'company');
     
 
 dol_fiche_end();
+?>
+<script type="text/javascript">
+$(function(){
+    $( "#search_contact" ).autocomplete({
+      source: "search_contacts.php",
+      minLength: 2,
+      select: function( event, ui ) {
+        log( ui.item ?
+          "Selected: " + ui.item.value + " aka " + ui.item.id :
+          "Nothing selected, input was " + this.value );
+      }
+    });
+})
+
+</script> 
 
 
+<?php
 llxFooter();
 
 $db->close();
