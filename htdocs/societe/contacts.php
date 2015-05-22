@@ -181,10 +181,13 @@ $soc_contacts  = soc_contacts($socid);
     }
 
     print '</table>'."\n";
-    print "<p>";
+    print "<p>Ajouter Contacts";
     print "</p>";
     print "<p>";
     print "<input type='text' id='search_contact' />";
+    print "<input type='button' id='clear_search' class='button' value='vider recherche' >";
+    
+    print "<div id='search-container'></div>";
     
     
     print "</p>";
@@ -199,13 +202,23 @@ dol_fiche_end();
 ?>
 <script type="text/javascript">
 $(function(){
+    $('#clear_search').click(function(){
+        $('#search-container').html('');
+    });
+    
+    
     $( "#search_contact" ).autocomplete({
-      source: "search_contacts.php",
+      source: "search_contacts.php?socid=<?=$socid?>",
       minLength: 2,
       select: function( event, ui ) {
-        log( ui.item ?
-          "Selected: " + ui.item.value + " aka " + ui.item.id :
-          "Nothing selected, input was " + this.value );
+        
+        $('#search-container').append(ui.item.html);
+//        
+//        
+//        
+//        log( ui.item ?
+//          "Selected: " + ui.item.value + " aka " + ui.item.id :
+//          "Nothing selected, input was " + this.value );
       }
     });
 })
