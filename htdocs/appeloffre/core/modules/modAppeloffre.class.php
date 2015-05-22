@@ -267,18 +267,90 @@ class modAppeloffre extends DolibarrModules
 		// an id, a label, a boolean and two constant strings.
 		// Example:
 		//// Permission id (must not be already used)
-		//$this->rights[$r][0] = 2000;
-		//// Permission label
-		//$this->rights[$r][1] = 'Permision label';
-		//// Permission by default for new user (0/1)
-		//$this->rights[$r][3] = 1;
-		//// In php code, permission will be checked by test
-		//// if ($user->rights->permkey->level1->level2)
-		//$this->rights[$r][4] = 'level1';
-		//// In php code, permission will be checked by test
-		//// if ($user->rights->permkey->level1->level2)
-		//$this->rights[$r][5] = 'level2';
-		//$r++;
+		$this->rights[$r][0] = 8200;
+		// Permission label
+		$this->rights[$r][1] = 'Create Appel Offre';
+		// Permission by default for new user (0/1)
+		$this->rights[$r][3] = 1;
+		// In php code, permission will be checked by test
+		// if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][4] = 'offre';
+		// In php code, permission will be checked by test
+		// if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = 'create';
+		$r++;
+		$this->rights[$r][0] = 8201;
+		// Permission label
+		$this->rights[$r][1] = 'Modify Appel Offre';
+		// Permission by default for new user (0/1)
+		$this->rights[$r][3] = 1;
+		// In php code, permission will be checked by test
+		// if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][4] = 'offre';
+		// In php code, permission will be checked by test
+		// if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = 'modify';
+		$r++;
+		$this->rights[$r][0] = 8202;
+		// Permission label
+		$this->rights[$r][1] = 'delete Appel Offre';
+		// Permission by default for new user (0/1)
+		$this->rights[$r][3] = 1;
+		// In php code, permission will be checked by test
+		// if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][4] = 'offre';
+		// In php code, permission will be checked by test
+		// if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = 'delete';
+		$r++;
+		$this->rights[$r][0] = 8203;
+		// Permission label
+		$this->rights[$r][1] = 'Cloture Appel Offre';
+		// Permission by default for new user (0/1)
+		$this->rights[$r][3] = 1;
+		// In php code, permission will be checked by test
+		// if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][4] = 'offre';
+		// In php code, permission will be checked by test
+		// if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = 'cloture';
+		$r++;
+		$this->rights[$r][0] = 8204;
+		// Permission label
+		$this->rights[$r][1] = 'create new contacts';
+		// Permission by default for new user (0/1)
+		$this->rights[$r][3] = 1;
+		// In php code, permission will be checked by test
+		// if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][4] = 'contacts';
+		// In php code, permission will be checked by test
+		// if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = 'create';
+		$r++;
+		$this->rights[$r][0] = 8205;
+		// Permission label
+		$this->rights[$r][1] = 'modify contacts';
+		// Permission by default for new user (0/1)
+		$this->rights[$r][3] = 1;
+		// In php code, permission will be checked by test
+		// if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][4] = 'contacts';
+		// In php code, permission will be checked by test
+		// if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = 'modify';
+		$r++;
+		$this->rights[$r][0] = 8206;
+		// Permission label
+		$this->rights[$r][1] = 'delete contacts';
+		// Permission by default for new user (0/1)
+		$this->rights[$r][3] = 1;
+		// In php code, permission will be checked by test
+		// if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][4] = 'contacts';
+		// In php code, permission will be checked by test
+		// if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = 'delete';
+		$r++;
 		// Main menu entries
 
 		// Add here entries to declare new menus
@@ -503,7 +575,7 @@ $this->menu[$r]=array(	'fk_menu'=>'r=1',	// Use 'fk_mainmenu=xxx' or 'fk_mainmen
 			'langs'=>'appeloffre',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>102,
 			'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->monmodule->enabled' if entry must be visible if module is enabled.
-			'perms'=>'1',			// Use 'perms'=>'$user->rights->monmodule->level1->level2' if you want your menu with a permission rules
+			'perms'=>'$user->rights->appeloffre->offre->create',			// Use 'perms'=>'$user->rights->monmodule->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>2);				// 0=Menu for internal users,1=external users, 2=both
 $r++;
@@ -543,7 +615,7 @@ $this->menu[$r]=array(	'fk_menu'=>'r=4',	// Use 'fk_mainmenu=xxx' or 'fk_mainmen
 			'langs'=>'appeloffre',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>105,
 			'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->monmodule->enabled' if entry must be visible if module is enabled.
-			'perms'=>'1',			// Use 'perms'=>'$user->rights->monmodule->level1->level2' if you want your menu with a permission rules
+			'perms'=>'$user->rights->appeloffre->contacts->create', //if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>2);				// 0=Menu for internal users,1=external users, 2=both
 $r++;
