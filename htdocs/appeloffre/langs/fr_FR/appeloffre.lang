@@ -43,3 +43,5 @@ AppeloffreAboutPage = appel offre about page
 # Sample page
 #
 MyPageName = My page name
+ConfirmCloture=Êtes-vous sûr de vouloir cloturer l'offre <b>%s</b> ?
+
