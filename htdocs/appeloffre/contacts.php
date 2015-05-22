@@ -2,6 +2,7 @@
 
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT . '/appeloffre/class/appeloffre.class.php';
+require_once DOL_DOCUMENT_ROOT . '/societe/class/societe.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/genericobject.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/lib/company.lib.php';
@@ -54,17 +55,29 @@ llxHeader('', $title, $helpurl);
 $appel_offre = new Appeloffre($db);
 $appel_offre->fetch($id);
 
+//get Adjudicataire
+$Adj =  $appel_offre->Adjudicataire;
+
+$societe = new Societe($db);
+$societe->fetch($Adj);
+//get Contacts of socite
+
+$contacts = soc_contacts($Adj);
+
 
 $head = offre_prepare_head($appel_offre, $user);
 $titre = $langs->trans("Offre Card");
 $picto = 'project';
 dol_fiche_head($head, 'contacts', $titre, 0, $picto);
+if (count($contacts))
+{    
+$guids_ctcs = implode(',',$contacts);
 
 
  $sql = "SELECT";
-    $sql.= " t.*";   
-    $sql.= " FROM ".MAIN_DB_PREFIX."contact as t";
-    $sql.= " WHERE rowid in (1,2,8,9,10)";
+$sql.= " t.*";   
+$sql.= " FROM ".MAIN_DB_PREFIX."contact as t";
+$sql.= " WHERE rowid in ($guids_ctcs)";
 
     
 //    print $sql;
@@ -124,7 +137,9 @@ dol_fiche_head($head, 'contacts', $titre, 0, $picto);
         }
     }
 print '</table>';
-
+}  else {
+print "<p>Aucuns Contacts pour cette offre</p>"    ;
+}
 dol_fiche_end();
 
 
