@@ -163,8 +163,39 @@ function soc_contacts($socid) {
     }
     return $contacts;
     
+       
+}
+/*
+ * return list of contact in the societe
+ * @global type $db
+ * @param type $socid
+ * @return type
+ */
+function contact_socs($contact) {
     
+    global $db;
     
+    $query = "SELECT * FROM `".MAIN_DB_PREFIX."contact_tiers` WHERE `id_contact`=$contact";
+
+    $tiers =  array();
     
+    $resql=$db->query($query);
+    if ($resql)
+    {
+        $num = $db->num_rows($resql);
+        $i = 0;
+        if ($num)
+        {
+            while ($i < $num)
+            {
+                $obj = $db->fetch_object($resql);
+                $tiers[]= $obj->id_tiers;
+                $i++;
+            }
+        }
+    }
+    return $tiers;
+    
+       
 }
 
