@@ -47,20 +47,20 @@ llxHeader('', $title, $helpurl);
 
 //mode visual du fiche offre 
 
-$appel_offre = new Appeloffre($db);
-$appel_offre->fetch($id);
-
-
 $head=contact_prepare_head($object, $user);
 $titre = $langs->trans("Offre Card");
 $picto = 'project';
-dol_fiche_head($head, 'contacts', $titre, 0, $picto);
+dol_fiche_head($head, 'tiers', $titre, 0, $picto);
 
+$tiers  = contact_socs($id);
 
+if (count($tiers)){
+    $guids_tiers = implode(',', $tiers);
+    
  $sql = "SELECT";
     $sql.= " s.*";   
     $sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
-    $sql.= " WHERE rowid in (1,2,8,9,10)";
+    $sql.= " WHERE rowid in ($guids_tiers)";
 
     
 //    print $sql;
@@ -107,7 +107,9 @@ dol_fiche_head($head, 'contacts', $titre, 0, $picto);
 
         }
     }
-print '</table>';
+print '</table>';}  else {
+print "<p>Aucun Tiers pour ce Contact</p>"    ;    
+}
 
 dol_fiche_end();
 
