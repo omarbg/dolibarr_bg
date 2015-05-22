@@ -8,6 +8,7 @@
 require '../main.inc.php';
 
 $term = GETPOST('term');
+$socid = GETPOST('socid','int');
 
 $query ="SELECT * FROM `llx_contact` WHERE `nom` LIKE '%$term%' OR `prenom` LIKE '%$term%'";
 $resql=$db->query($query);
@@ -26,6 +27,36 @@ $num = $db->num_rows($resql);
                     $rs  = array();
                     $rs['id']= $obj->id;
                     $rs['value']= $obj->nom." ".$obj->prenom;
+                    
+                    $html =  '<table><tr>';
+                    
+                    $html .=  '<td>';
+                    
+                    $html .= "<a href='card.php?id=$obj->rowid'>".$obj->nom." ".$obj->prenom."</a>";
+//                    print $obj->id;   
+                    $html .= '</td>';
+            
+                    $html .= '<td>';
+                    $html .= $obj->email;
+                    $html .= '</td>';
+                    
+                    $html .= '<td>';
+                    $html .= $obj->telephone1;
+                    $html .= '</td>';
+                    $html .= '<td>';                    
+                    $html .= $obj->telephone2;
+                    $html .= '</td>';
+                    $html .= '<td>';                    
+                    $html .= $obj->methode_contact;
+                    $html .= '</td>';
+                    $html .= '<td>';
+                    $html .= '<a href="'.DOL_URL_ROOT.'/societe/contacts.php?socid='.$socid.'&action=addc&id_contact='.$obj->rowid.'">Ajouter</a>';
+                    $html .= '</td>';                  
+                    $html .= '</tr></table>';
+                    
+                    
+                    
+                    $rs['html']= $html;
                     $return[] = $rs; 
                 }
                 $i++;
